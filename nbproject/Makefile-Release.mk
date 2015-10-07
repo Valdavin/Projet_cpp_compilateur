@@ -41,8 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Symbole.o \
 	${OBJECTDIR}/SymboleValue.o \
 	${OBJECTDIR}/TableSymboles.o \
-	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/main_1.o
+	${OBJECTDIR}/main.o
 
 
 # C Compiler Flags
@@ -103,11 +102,6 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
-
-${OBJECTDIR}/main_1.o: main_1.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_1.o main_1.cpp
 
 # Subprojects
 .build-subprojects:

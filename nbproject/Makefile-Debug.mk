@@ -41,8 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Symbole.o \
 	${OBJECTDIR}/SymboleValue.o \
 	${OBJECTDIR}/TableSymboles.o \
-	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/main_1.o
+	${OBJECTDIR}/main.o
 
 
 # C Compiler Flags
@@ -72,42 +71,37 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projet_cpp_compilateur: ${OBJECTFILES
 ${OBJECTDIR}/ArbreAbstrait.o: ArbreAbstrait.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ArbreAbstrait.o ArbreAbstrait.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ArbreAbstrait.o ArbreAbstrait.cpp
 
 ${OBJECTDIR}/Interpreteur.o: Interpreteur.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Interpreteur.o Interpreteur.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Interpreteur.o Interpreteur.cpp
 
 ${OBJECTDIR}/Lecteur.o: Lecteur.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Lecteur.o Lecteur.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Lecteur.o Lecteur.cpp
 
 ${OBJECTDIR}/Symbole.o: Symbole.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Symbole.o Symbole.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Symbole.o Symbole.cpp
 
 ${OBJECTDIR}/SymboleValue.o: SymboleValue.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SymboleValue.o SymboleValue.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SymboleValue.o SymboleValue.cpp
 
 ${OBJECTDIR}/TableSymboles.o: TableSymboles.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TableSymboles.o TableSymboles.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TableSymboles.o TableSymboles.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
-
-${OBJECTDIR}/main_1.o: main_1.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_1.o main_1.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
