@@ -41,6 +41,7 @@
     <itemPath>Makefile</itemPath>
     <itemPath>motsCles.txt</itemPath>
     <itemPath>programme.txt</itemPath>
+    <itemPath>t</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -88,6 +89,8 @@
       <item path="motsCles.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="programme.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="t" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -143,6 +146,8 @@
       <item path="motsCles.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="programme.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="t" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
