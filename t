@@ -13,7 +13,7 @@ j=j-10;
 jusqua ( j<-1000 )
 i=0;
 k=0;
-#penser a reparer le pour
+#penser a reparer le pour, finir le ecrire et lire
 pour(i=0;i<10;)
 k=k-1000;
 finpour
