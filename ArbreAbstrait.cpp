@@ -91,3 +91,59 @@ int NoeudInstTantQue::executer() {
   while (m_condition->executer()) m_sequence->executer();
   return 0; // La valeur renvoyée ne représente rien !
 }
+////////////////////////////////////////////////////////////////////////////////
+// NoeudInstRepeter
+////////////////////////////////////////////////////////////////////////////////
+
+NoeudInstRepeter::NoeudInstRepeter(Noeud* sequence, Noeud* condition)
+: m_condition(condition), m_sequence(sequence) {
+}
+
+int NoeudInstRepeter::executer() {
+    do{
+        m_sequence->executer();
+    }while (!m_condition->executer());
+  return 0; // La valeur renvoyée ne représente rien !
+}
+////////////////////////////////////////////////////////////////////////////////
+// NoeudInstPour
+////////////////////////////////////////////////////////////////////////////////
+
+NoeudInstPour::NoeudInstPour(Noeud* affectation1, Noeud* condition, Noeud* affectation2, Noeud* sequence)
+: m_condition(condition), m_sequence(sequence),m_affectation1(affectation1), m_affectation2(affectation2){
+}
+
+int NoeudInstPour::executer() {
+    for(m_affectation1->executer();m_condition->executer();m_affectation2->executer())
+   m_sequence->executer();
+  return 0; // La valeur renvoyée ne représente rien !
+}
+////////////////////////////////////////////////////////////////////////////////
+// NoeudInstEcrire
+////////////////////////////////////////////////////////////////////////////////
+
+NoeudInstEcrire::NoeudInstEcrire(Noeud* variable)
+: m_variable(variable) {
+}
+
+int NoeudInstEcrire::executer() {
+    cout << m_variable->executer();
+  //while (m_condition->executer()) m_sequence->executer();
+  return 0; // La valeur renvoyée ne représente rien !
+}
+////////////////////////////////////////////////////////////////////////////////
+// NoeudLire
+////////////////////////////////////////////////////////////////////////////////
+
+NoeudInstLire::NoeudInstLire(Noeud* variable)
+: m_variable(variable) {
+}
+
+int NoeudInstLire::executer() {
+  //int valeur = m_expression->executer(); // On exécute (évalue) l'expression
+  int valeur;
+    cin >> valeur;
+  ((SymboleValue*) m_variable)->setValeur(valeur);
+  //while (m_condition->executer()) m_sequence->executer();
+  return 0; // La valeur renvoyée ne représente rien !
+}
