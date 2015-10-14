@@ -197,14 +197,13 @@ return new NoeudInstPour(affectation1, condition, affectation2, sequence); // Et
 
 Noeud* Interpreteur::instEcrire() {
     //<instTantQue> ::= tantque ( <expression> ) <seqInst> fintantque
-    return nullptr;
-    /*testerEtAvancer("tantque");
+    //return nullptr;
+    testerEtAvancer("ecrire");
     testerEtAvancer("(");
-    Noeud* condition = expression(); // On mémorise la condition
-    testerEtAvancer(")");
-    Noeud* sequence = seqInst();     // On mémorise la séquence d'instruction
-    testerEtAvancer("fintantque");
-    return new NoeudInstTantQue(condition, sequence); // Et on renvoie un noeud Instruction Si*/
+    Noeud* valeur = expression(); // On mémorise la condition
+    testerEtAvancer(")");    // On mémorise la séquence d'instruction
+    //testerEtAvancer(";");
+    return new NoeudInstEcrire(valeur); // Et on renvoie un noeud Instruction Si
 }
 
 Noeud* Interpreteur::instLire() {

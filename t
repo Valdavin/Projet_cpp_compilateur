@@ -17,6 +17,7 @@ k=0;
 pour(i=0;i<10;)
 k=k-1000;
 i=i+1;
+ecrire(i)
 finpour
 finproc
 # Commentaire Final
