@@ -16,6 +16,7 @@ k=0;
 #penser a reparer le pour, finir le ecrire et lire
 pour(i=0;i<10;)
 k=k-1000;
+i=i+1;
 finpour
 finproc
 # Commentaire Final

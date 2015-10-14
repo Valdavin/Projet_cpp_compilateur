@@ -108,17 +108,33 @@ int NoeudInstRepeter::executer() {
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudInstPour
 ////////////////////////////////////////////////////////////////////////////////
-
 NoeudInstPour::NoeudInstPour(Noeud* affectation1, Noeud* condition, Noeud* affectation2, Noeud* sequence)
 : m_condition(condition), m_sequence(sequence),m_affectation1(affectation1), m_affectation2(affectation2){
 }
 
 int NoeudInstPour::executer() {
-    for(m_affectation1->executer();m_condition->executer();m_affectation2->executer())
+    if(m_affectation1==NULL){
+        if(m_affectation2==NULL){
+        for(;m_condition->executer();)
+        m_sequence->executer();
+        }else{
+            for(;m_condition->executer();m_affectation2->executer())
+   m_sequence->executer();
+        }
+    }else{
+        if(m_affectation2==NULL){
+        for(m_affectation1->executer();m_condition->executer();)
+        m_sequence->executer();
+        }else{
+            for(m_affectation1->executer();m_condition->executer();m_affectation2->executer())
+   m_sequence->executer();
+        }
+    }
+    //for(m_affectation1->executer();m_condition->executer();m_affectation2->executer())
    m_sequence->executer();
   return 0; // La valeur renvoyée ne représente rien !
 }
-////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 // NoeudInstEcrire
 ////////////////////////////////////////////////////////////////////////////////
 
