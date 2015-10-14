@@ -10,7 +10,9 @@ m_lecteur(fichier), m_table(), m_arbre(nullptr) {
 bool Interpreteur::sansErreur() {
     
 }
-void Interpreteur::afficherErreur();
+void Interpreteur::afficherErreur() {
+    
+}
 void Interpreteur::analyse() {
     m_arbre = programme(); // on lance l'analyse de la première règle
 }
