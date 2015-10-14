@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
         // Et on vérifie qu'il a fonctionné en regardant comment il a modifié la table des symboles
         cout << endl << "================ Table des symboles apres exécution : " << interpreteur.getTable();
     } else {
-        interpreteur.afficherErreur();
+        interpreteur.afficherErreur(std::cout);
     }
 
   } catch (InterpreteurException & e) {

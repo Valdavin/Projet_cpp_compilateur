@@ -7,6 +7,7 @@ procedure principale()
   finsi
 tantque(j<42)
     j==j+1;
+    j==j+1;
  fintantque
 finproc
 # Commentaire Final

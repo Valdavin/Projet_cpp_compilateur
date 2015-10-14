@@ -8,10 +8,12 @@ m_lecteur(fichier), m_table(), m_arbre(nullptr) {
 }
 
 bool Interpreteur::sansErreur() {
-    
+    return m_exception.empty();
 }
-void Interpreteur::afficherErreur() {
-    
+void Interpreteur::afficherErreur(ostream & cout) {
+    for (auto e : m_exception) {
+        cout << e.what() << endl;
+    }
 }
 void Interpreteur::analyse() {
     m_arbre = programme(); // on lance l'analyse de la première règle
