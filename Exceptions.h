@@ -28,12 +28,12 @@ public:
 
 class SyntaxeException : public InterpreteurException {
 public:
-    SyntaxeException(const char * message = NULL) : m_message(message) {}
+    SyntaxeException(string message) : m_message(message) {}
     const char * what() const throw() {
-        return m_message;
+        return m_message.c_str();
     }
 private :
-    const char* m_message;
+    string m_message;
 };
 
 

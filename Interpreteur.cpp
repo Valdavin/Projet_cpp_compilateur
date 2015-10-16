@@ -1,6 +1,7 @@
 #include "Interpreteur.h"
 #include <stdlib.h>
 #include <iostream>
+#include <sstream>
 using namespace std;
 
 Interpreteur::Interpreteur(ifstream & fichier) :
@@ -10,41 +11,46 @@ m_lecteur(fichier), m_table(), m_arbre(nullptr) {
 bool Interpreteur::sansErreur() {
     return m_exception.empty();
 }
+
 void Interpreteur::afficherErreur(ostream & cout) {
     for (auto e : m_exception) {
         cout << e.what() << endl;
     }
 }
+
 void Interpreteur::analyse() {
     m_arbre = programme(); // on lance l'analyse de la première règle
 }
 
 void Interpreteur::tester(const string & symboleAttendu) const throw (SyntaxeException) {
     // Teste si le symbole courant est égal au symboleAttendu... Si non, lève une exception
-    static char messageWhat[256];
+
     if (m_lecteur.getSymbole() != symboleAttendu) {
-        sprintf(messageWhat,
-                "Ligne %d, Colonne %d - Erreur de syntaxe - Symbole attendu : %s - Symbole trouvé : %s",
-                m_lecteur.getLigne(), m_lecteur.getColonne(),
-                symboleAttendu.c_str(), m_lecteur.getSymbole().getChaine().c_str());
-        throw SyntaxeException(messageWhat);
+        stringstream messageWhat;
+        messageWhat << "Ligne " << m_lecteur.getLigne() << " Colonne " << m_lecteur.getColonne() << " - Erreur de syntaxe - Symbole attendu : "
+                << symboleAttendu << " - Symbole trouvé : " << m_lecteur.getSymbole().getChaine();
+        throw SyntaxeException(messageWhat.str());
     }
 }
 
 void Interpreteur::testerEtAvancer(const string & symboleAttendu) throw (SyntaxeException) {
     // Teste si le symbole courant est égal au symboleAttendu... Si oui, avance, Sinon, lève une exception
-    tester(symboleAttendu);
+    try {
+        tester(symboleAttendu);
+    } catch (SyntaxeException & e) {
+        m_exception.push_back(e);
+    }
+
     m_lecteur.avancer();
 }
 
 void Interpreteur::erreur(const string & message) const throw (SyntaxeException) {
     // Lève une exception contenant le message et le symbole courant trouvé
     // Utilisé lorsqu'il y a plusieurs symboles attendus possibles...
-    static char messageWhat[256];
-    sprintf(messageWhat,
-            "Ligne %d, Colonne %d - Erreur de syntaxe - %s - Symbole trouvé : %s",
-            m_lecteur.getLigne(), m_lecteur.getColonne(), message.c_str(), m_lecteur.getSymbole().getChaine().c_str());
-    throw SyntaxeException(messageWhat);
+    stringstream messageWhat;
+    messageWhat << "Ligne " << m_lecteur.getLigne() << " Colonne " << m_lecteur.getColonne() << " - Erreur de syntaxe - "
+            << message << " - Symbole trouvé : " << m_lecteur.getSymbole().getChaine();
+    throw SyntaxeException(messageWhat.str());
 }
 
 Noeud* Interpreteur::programme() {
@@ -98,6 +104,7 @@ Noeud* Interpreteur::affectation() {
     Noeud* var = m_table.chercheAjoute(m_lecteur.getSymbole()); // La variable est ajoutée à la table eton la mémorise
     m_lecteur.avancer();
     testerEtAvancer("=");
+
     Noeud* exp = expression(); // On mémorise l'expression trouvée
     return new NoeudAffectation(var, exp); // On renvoie un noeud affectation
 }
@@ -192,9 +199,9 @@ Noeud* Interpreteur::instPour() {
     if (m_lecteur.getSymbole() == "<VARIABLE>")
         affectation2 = affectation();
     testerEtAvancer(")");
-Noeud* sequence = seqInst(); // On mémorise la séquence d'instruction
-testerEtAvancer("finpour");
-return new NoeudInstPour(affectation1, condition, affectation2, sequence); // Et on renvoie un noeud Instruction Si
+    Noeud* sequence = seqInst(); // On mémorise la séquence d'instruction
+    testerEtAvancer("finpour");
+    return new NoeudInstPour(affectation1, condition, affectation2, sequence); // Et on renvoie un noeud Instruction Si
 }
 
 Noeud* Interpreteur::instEcrire() {
@@ -203,7 +210,7 @@ Noeud* Interpreteur::instEcrire() {
     testerEtAvancer("ecrire");
     testerEtAvancer("(");
     Noeud* valeur = expression(); // On mémorise la condition
-    testerEtAvancer(")");    // On mémorise la séquence d'instruction
+    testerEtAvancer(")"); // On mémorise la séquence d'instruction
     //testerEtAvancer(";");
     return new NoeudInstEcrire(valeur); // Et on renvoie un noeud Instruction Si
 }

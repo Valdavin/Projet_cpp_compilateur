@@ -1,6 +1,8 @@
 # Fichier de test
 # Les lignes de commentaires commencent par #
 procedure principale()
+    j==j+1;
+    j==j+1;
   i = 12+3;
   si (i>14)
     j=1;

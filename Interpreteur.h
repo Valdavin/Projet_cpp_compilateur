@@ -28,7 +28,7 @@ private:
     Lecteur        m_lecteur;  // Le lecteur de symboles utilisé pour analyser le fichier
     TableSymboles  m_table;    // La table des symboles valués
     Noeud*         m_arbre;    // L'arbre abstrait
-    vector<exception> m_exception;       // gestion des erreurs "Grain fin" 
+    vector<SyntaxeException> m_exception;       // gestion des erreurs "Grain fin"
 
     // Implémentation de la grammaire
     Noeud*  programme();   //   <programme> ::= procedure principale() <seqInst> finproc FIN_FICHIER

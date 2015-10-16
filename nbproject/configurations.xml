@@ -38,6 +38,7 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
       <itemPath>t</itemPath>
+      <itemPath>v</itemPath>
     </logicalFolder>
     <itemPath>Makefile</itemPath>
     <itemPath>motsCles.txt</itemPath>
