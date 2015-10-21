@@ -3,6 +3,9 @@
 #include "Symbole.h"
 #include "SymboleValue.h"
 #include "Exceptions.h"
+#include <vector>
+#include <string>
+#include <typeinfo>
 
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudSeqInst
@@ -82,8 +85,8 @@ void NoeudOperateurBinaire::traduitEnCPP(ostream & cout, unsigned int identation
 // NoeudInstSi
 ////////////////////////////////////////////////////////////////////////////////
 
-NoeudInstSi::NoeudInstSi(Noeud* condition, Noeud* sequence)
-: m_condition(condition), m_sequence(sequence) {
+NoeudInstSi::NoeudInstSi(Noeud* condition, Noeud* sequence, vector<Noeud*> condition2, vector<Noeud*> sequence2, Noeud* sequence3)
+: m_condition(condition), m_sequence(sequence), m_condition2(condition2), m_sequence2(sequence2), m_sequence3(sequence3) {
 }
 
 int NoeudInstSi::executer() {
@@ -158,28 +161,40 @@ int NoeudInstPour::executer() {
 // NoeudInstEcrire
 ////////////////////////////////////////////////////////////////////////////////
 
-NoeudInstEcrire::NoeudInstEcrire(Noeud* variable)
-: m_variable(variable) {
+NoeudInstEcrire::NoeudInstEcrire(){
 }
 
 int NoeudInstEcrire::executer() {
-    cout << m_variable->executer();
-  //while (m_condition->executer()) m_sequence->executer();
+    for (unsigned int i = 0; i < m_variable.size(); i++) {
+        if ( (typeid(*m_variable[i])==typeid(SymboleValue) &&  *((SymboleValue*)m_variable[i])== "<CHAINE>" )){
+            string chaine = ((SymboleValue*) m_variable[i])-> getChaine();
+            cout << chaine.substr(1, chaine.size() - 2);
+        }else{
+            cout << m_variable[i]->executer(); // On exécute chaque instruction de la séquence -> récupérer valeur
+        }
+    }
+    cout << endl;
   return 0; // La valeur renvoyée ne représente rien !
+}
+
+
+void NoeudInstEcrire::ajoute(Noeud * instruction) {
+    if (instruction != nullptr) m_variable.push_back(instruction);
 }
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudLire
 ////////////////////////////////////////////////////////////////////////////////
 
-NoeudInstLire::NoeudInstLire(Noeud* variable)
+NoeudInstLire::NoeudInstLire(vector<Noeud*> variable)
 : m_variable(variable) {
 }
 
 int NoeudInstLire::executer() {
-  //int valeur = m_expression->executer(); // On exécute (évalue) l'expression
-  int valeur;
-    cin >> valeur;
-  ((SymboleValue*) m_variable)->setValeur(valeur);
-  //while (m_condition->executer()) m_sequence->executer();
+  //int valeur = m_expression->executer(); // On exécute (évalue) l'expression 
+    for (unsigned int i = 0; i < m_variable.size(); i++) {
+        int valeur;
+        cin >> valeur;
+        ((SymboleValue*) m_variable[i])->setValeur(valeur);
+    }
   return 0; // La valeur renvoyée ne représente rien !
 }
