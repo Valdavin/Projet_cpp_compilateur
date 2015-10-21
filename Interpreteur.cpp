@@ -151,14 +151,33 @@ Noeud* Interpreteur::facteur() {
 }
 
 Noeud* Interpreteur::instSi() {
-    // <instSi> ::= si ( <expression> ) <seqInst> finsi
+    //<instSi> ::=si( <expression> ) <seqInst> {sinonsi( <expression> ) <seqInst> }[sinon <seqInst>]finsi
     testerEtAvancer("si");
     testerEtAvancer("(");
     Noeud* condition = expression(); // On mémorise la condition
     testerEtAvancer(")");
     Noeud* sequence = seqInst(); // On mémorise la séquence d'instruction
+    vector<Noeud*> condition2;
+    vector<Noeud*> sequence2;
+    Noeud* condition3=NULL;
+    Noeud* sequence3=NULL;
+    //if(sequence3==NULL){cout<<"NULL";}else{cout<<"pasNULL";}
+    while(m_lecteur.getSymbole() == "sinonsi"){
+        //m_lecteur.avancer();
+        testerEtAvancer("sinonsi");
+        testerEtAvancer("(");
+        condition2.push_back(expression()); 
+        testerEtAvancer(")");
+        sequence2.push_back(seqInst());
+        
+    }
+    if(m_lecteur.getSymbole() == "sinon"){
+        testerEtAvancer("sinon");
+        sequence3=seqInst();
+        
+    }
     testerEtAvancer("finsi");
-    return new NoeudInstSi(condition, sequence); // Et on renvoie un noeud Instruction Si
+    return new NoeudInstSi(condition, sequence, condition2, sequence2, sequence3); // Et on renvoie un noeud Instruction Si
 }
 
 Noeud* Interpreteur::instTantQue() {
@@ -174,7 +193,7 @@ Noeud* Interpreteur::instTantQue() {
 }
 
 Noeud* Interpreteur::instRepeter() {
-    //<instTantQue> ::= tantque ( <expression> ) <seqInst> fintantque
+    //<instRepeter> ::=repeter <seqInst> jusqua( <expression> )
     //return nullptr;
     testerEtAvancer("repeter");
     Noeud* sequence = seqInst(); // On mémorise la séquence d'instruction
@@ -199,29 +218,50 @@ Noeud* Interpreteur::instPour() {
     if (m_lecteur.getSymbole() == "<VARIABLE>")
         affectation2 = affectation();
     testerEtAvancer(")");
-    Noeud* sequence = seqInst(); // On mémorise la séquence d'instruction
-    testerEtAvancer("finpour");
-    return new NoeudInstPour(affectation1, condition, affectation2, sequence); // Et on renvoie un noeud Instruction Si
+Noeud* sequence = seqInst(); // On mémorise la séquence d'instruction
+testerEtAvancer("finpour");
+return new NoeudInstPour(affectation1, condition, affectation2, sequence); // Et on renvoie un noeud Instruction Si
 }
 
 Noeud* Interpreteur::instEcrire() {
-    //<instTantQue> ::= tantque ( <expression> ) <seqInst> fintantque
+    //<instEcrire>  ::=ecrire( <expression> | <chaine> {, <expression> | <chaine> } )
     //return nullptr;
     testerEtAvancer("ecrire");
+    NoeudInstEcrire* valeur = new NoeudInstEcrire;
+    //vector<String> Chaine;
+    //vector<int> info;
     testerEtAvancer("(");
-    Noeud* valeur = expression(); // On mémorise la condition
-    testerEtAvancer(")"); // On mémorise la séquence d'instruction
+    if (m_lecteur.getSymbole() == "<CHAINE>") {
+        valeur->ajoute(m_table.chercheAjoute(m_lecteur.getSymbole()));
+        m_lecteur.avancer();
+    }else {
+        valeur->ajoute(expression());
+    }
+    while(m_lecteur.getSymbole() == ","){
+        testerEtAvancer(",");
+        if (m_lecteur.getSymbole() == "<CHAINE>") {
+            valeur->ajoute(m_table.chercheAjoute(m_lecteur.getSymbole()));
+            m_lecteur.avancer();
+        }else {
+            valeur->ajoute(expression());
+        }
+    }
+    testerEtAvancer(")");    // On mémorise la séquence d'instruction
     //testerEtAvancer(";");
-    return new NoeudInstEcrire(valeur); // Et on renvoie un noeud Instruction Si
+    return valeur; // Et on renvoie un noeud Instruction Si
 }
 
 Noeud* Interpreteur::instLire() {
-    //<instTantQue> ::= tantque ( <expression> ) <seqInst> fintantque
-    return nullptr;
-    /*testerEtAvancer("lire");
+    //<instLire>   ::=lire( <variable> {, <variable> } )
+    testerEtAvancer("lire");
+    vector<Noeud*> variable;
     testerEtAvancer("(");
-    Noeud* variable = variable(); // On mémorise la condition
+        variable.push_back(expression()); // On mémorise la condition
+    while(m_lecteur.getSymbole() == ","){
+        testerEtAvancer(",");
+        variable.push_back(expression());
+    }
     testerEtAvancer(")");
-    return new NoeudInstTantQue(variable); // Et on renvoie un noeud Instruction Si*/
+    return new NoeudInstLire(variable); // Et on renvoie un noeud Instruction Si*/
 }
 

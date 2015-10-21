@@ -7,6 +7,8 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
+#include <vector>
+#include<string>
 using namespace std;
 
 #include "Symbole.h"
@@ -71,7 +73,7 @@ class NoeudInstSi : public Noeud {
 // Classe pour représenter un noeud "instruction si"
 //  et ses 2 fils : la condition du si et la séquence d'instruction associée
   public:
-    NoeudInstSi(Noeud* condition, Noeud* sequence);
+    NoeudInstSi(Noeud* condition, Noeud* sequence, vector<Noeud*> condition2, vector<Noeud*> sequence2, Noeud* sequence3);
      // Construit une "instruction si" avec sa condition et sa séquence d'instruction
    ~NoeudInstSi() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();  // Exécute l'instruction si : si condition vraie on exécute la séquence
@@ -79,6 +81,9 @@ class NoeudInstSi : public Noeud {
   private:
     Noeud*  m_condition;
     Noeud*  m_sequence;
+    vector<Noeud*>  m_condition2;
+    vector<Noeud*>  m_sequence2;
+    Noeud*  m_sequence3;
 };
 ////////////////////////////////////////////////////////////////////////////////
 class NoeudInstTantQue : public Noeud {
@@ -129,26 +134,27 @@ class NoeudInstEcrire : public Noeud {
 // Classe pour représenter un noeud "instruction si"
 //  et ses 2 fils : la condition du si et la séquence d'instruction associée
   public:
-    NoeudInstEcrire(Noeud* variable);
+    NoeudInstEcrire();
      // Construit une "instruction si" avec sa condition et sa séquence d'instruction
    ~NoeudInstEcrire() {} // A cause du destructeur virtuel de la classe Noeud
+    void ajoute(Noeud* instruction);
     int executer();  // Exécute l'instruction si : si condition vraie on exécute la séquence
 
   private:
-    Noeud*  m_variable;
+   vector<Noeud*>  m_variable;
 };
 ////////////////////////////////////////////////////////////////////////////////
 class NoeudInstLire : public Noeud {
 // Classe pour représenter un noeud "instruction si"
 //  et ses 2 fils : la condition du si et la séquence d'instruction associée
   public:
-    NoeudInstLire(Noeud* variable);
+    NoeudInstLire(vector<Noeud*> variable);
      // Construit une "instruction si" avec sa condition et sa séquence d'instruction
    ~NoeudInstLire() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();  // Exécute l'instruction si : si condition vraie on exécute la séquence
 
   private:
-    Noeud*  m_variable;
+    vector<Noeud*>  m_variable;
 };
 
 #endif /* ARBREABSTRAIT_H */
