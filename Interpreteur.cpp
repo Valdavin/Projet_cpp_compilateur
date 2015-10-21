@@ -13,8 +13,12 @@ bool Interpreteur::sansErreur() {
 }
 
 void Interpreteur::afficherErreur(ostream & cout) {
+    cout<<endl<< " ================ Erreur Syntaxe : " << m_exception.size() << " erreur(s) trouvée(s) !" 
+            << " ================" << endl;
+    int i = 1;
     for (auto e : m_exception) {
-        cout << e.what() << endl;
+        cout << i << " : " << e.what() << endl;
+        i++;
     }
 }
 
@@ -22,25 +26,26 @@ void Interpreteur::analyse() {
     m_arbre = programme(); // on lance l'analyse de la première règle
 }
 
-void Interpreteur::tester(const string & symboleAttendu) const throw (SyntaxeException) {
-    // Teste si le symbole courant est égal au symboleAttendu... Si non, lève une exception
-
-    if (m_lecteur.getSymbole() != symboleAttendu) {
+void Interpreteur::tester(const string & symboleAttendu) {
+    // Teste si le symbole courant est égal au symboleAttendu... Si non, lève une erreur
+    try {
+        if (m_lecteur.getSymbole() != symboleAttendu) {
         stringstream messageWhat;
         messageWhat << "Ligne " << m_lecteur.getLigne() << " Colonne " << m_lecteur.getColonne() << " - Erreur de syntaxe - Symbole attendu : "
                 << symboleAttendu << " - Symbole trouvé : " << m_lecteur.getSymbole().getChaine();
         throw SyntaxeException(messageWhat.str());
+        }
+    } catch (SyntaxeException & e) { // RECUPERATION DES ERREURS - "GRAIN FIN"
+        m_exception.push_back(e);
     }
+    
 }
 
 void Interpreteur::testerEtAvancer(const string & symboleAttendu) throw (SyntaxeException) {
-    // Teste si le symbole courant est égal au symboleAttendu... Si oui, avance, Sinon, lève une exception
-    try {
-        tester(symboleAttendu);
-    } catch (SyntaxeException & e) {
-        m_exception.push_back(e);
-    }
-
+    // Teste si le symbole courant est égal au symboleAttendu... Si oui, avance, Sinon, lève une erreur puis avance. 
+    // Si une erreur est trouvé, le programme ne seras pas interprété.
+    
+    tester(symboleAttendu);
     m_lecteur.avancer();
 }
 

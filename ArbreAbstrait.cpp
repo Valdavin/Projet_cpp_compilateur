@@ -67,6 +67,17 @@ int NoeudOperateurBinaire::executer() {
   return valeur; // On retourne la valeur calculée
 }
 
+void NoeudOperateurBinaire::traduitEnCPP(ostream & cout, unsigned int identation) const {
+    cout << setw(identation) << "" << m_operandeGauche;
+    if (this->m_operateur == "et") cout<< " && ";
+    else if (this->m_operateur == "ou") cout<< " || ";
+    else if (this->m_operateur == "non") cout<< " != ";
+    else  cout << " " << m_operateur << " ";
+  
+    cout << m_operandeDroit;
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudInstSi
 ////////////////////////////////////////////////////////////////////////////////
@@ -79,6 +90,15 @@ int NoeudInstSi::executer() {
   if (m_condition->executer()) m_sequence->executer();
   return 0; // La valeur renvoyée ne représente rien !
 }
+
+void NoeudInstSi::traduitEnCPP(ostream & cout, unsigned int identation) const {
+    cout << setw(4*identation) << "" << "if (";
+    //m_condition->traduitEnCPP(cout, 0);
+    cout << ")  {" << endl;
+    //m_sequence->traduitEnCPP(cout, identation+1);
+    cout << setw(4*identation) << "" << ")" << endl;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudInstTantQue
 ////////////////////////////////////////////////////////////////////////////////

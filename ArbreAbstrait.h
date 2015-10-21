@@ -59,6 +59,7 @@ class NoeudOperateurBinaire : public Noeud {
     // Construit une opération binaire : operandeGauche operateur OperandeDroit
    ~NoeudOperateurBinaire() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();            // Exécute (évalue) l'opération binaire)
+    void traduitEnCPP(ostream & cout, unsigned int identation) const;
 
   private:
     Symbole m_operateur;
@@ -75,7 +76,7 @@ class NoeudInstSi : public Noeud {
      // Construit une "instruction si" avec sa condition et sa séquence d'instruction
    ~NoeudInstSi() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();  // Exécute l'instruction si : si condition vraie on exécute la séquence
-
+    void traduitEnCPP(ostream & cout, unsigned int identation) const;
   private:
     Noeud*  m_condition;
     Noeud*  m_sequence;
