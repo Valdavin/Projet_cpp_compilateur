@@ -22,6 +22,7 @@ class Noeud {
     virtual int  executer() =0 ; // Méthode pure (non implémentée) qui rend la classe abstraite
     virtual void ajoute(Noeud* instruction) { throw OperationInterditeException(); }
     virtual ~Noeud() {} // Présence d'un destructeur virtuel conseillée dans les classes abstraites
+    virtual void traduitEnCPP(ostream & cout, unsigned int identation) const; // Méthode pure (non implémentée) qui rend la classe abstraite
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -33,6 +34,7 @@ class NoeudSeqInst : public Noeud {
     ~NoeudSeqInst() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();    // Exécute chaque instruction de la séquence
     void ajoute(Noeud* instruction);  // Ajoute une instruction à la séquence
+    void traduitEnCPP(ostream & cout, unsigned int identation) const;
 
   private:
     vector<Noeud *> m_instructions; // pour stocker les instructions de la séquence
@@ -46,7 +48,7 @@ class NoeudAffectation : public Noeud {
      NoeudAffectation(Noeud* variable, Noeud* expression); // construit une affectation
     ~NoeudAffectation() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();        // Exécute (évalue) l'expression et affecte sa valeur à la variable
-
+    void traduitEnCPP(ostream & cout, unsigned int identation) const;
   private:
     Noeud* m_variable;
     Noeud* m_expression;

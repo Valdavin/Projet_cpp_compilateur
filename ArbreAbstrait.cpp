@@ -24,6 +24,12 @@ void NoeudSeqInst::ajoute(Noeud* instruction) {
   if (instruction!=nullptr) m_instructions.push_back(instruction);
 }
 
+void NoeudSeqInst::traduitEnCPP(ostream & cout, unsigned int identation) const {
+    for (unsigned int i = 0; i < m_instructions.size(); i++)
+    m_instructions[i]->traduitEnCPP(cout, identation); // on exécute chaque instruction de la séquence
+    
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudAffectation
 ////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +42,10 @@ int NoeudAffectation::executer() {
   int valeur = m_expression->executer(); // On exécute (évalue) l'expression
   ((SymboleValue*) m_variable)->setValeur(valeur); // On affecte la variable
   return 0; // La valeur renvoyée ne représente rien !
+}
+
+void NoeudAffectation::traduitEnCPP(ostream & cout, unsigned int identation) const {
+    cout << m_variable << " = " << m_expression << ";";
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -96,9 +106,9 @@ int NoeudInstSi::executer() {
 
 void NoeudInstSi::traduitEnCPP(ostream & cout, unsigned int identation) const {
     cout << setw(4*identation) << "" << "if (";
-    //m_condition->traduitEnCPP(cout, 0);
+    m_condition->traduitEnCPP(cout, 0);
     cout << ")  {" << endl;
-    //m_sequence->traduitEnCPP(cout, identation+1);
+    m_sequence->traduitEnCPP(cout, identation+1);
     cout << setw(4*identation) << "" << ")" << endl;
 }
 
