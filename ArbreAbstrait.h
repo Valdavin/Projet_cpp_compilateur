@@ -95,7 +95,8 @@ class NoeudInstTantQue : public Noeud {
      // Construit une "instruction si" avec sa condition et sa séquence d'instruction
    ~NoeudInstTantQue() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();  // Exécute l'instruction si : si condition vraie on exécute la séquence
-
+    void traduitEnCPP(ostream & cout, unsigned int identation) const;
+  
   private:
     Noeud*  m_condition;
     Noeud*  m_sequence;
@@ -109,7 +110,8 @@ class NoeudInstRepeter : public Noeud {
      // Construit une "instruction si" avec sa condition et sa séquence d'instruction
    ~NoeudInstRepeter() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();  // Exécute l'instruction si : si condition vraie on exécute la séquence
-
+    void traduitEnCPP(ostream & cout, unsigned int identation) const;
+  
   private:
     Noeud*  m_condition;
     Noeud*  m_sequence;
@@ -123,7 +125,8 @@ class NoeudInstPour : public Noeud {
      // Construit une "instruction si" avec sa condition et sa séquence d'instruction
    ~NoeudInstPour() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();  // Exécute l'instruction si : si condition vraie on exécute la séquence
-
+    void traduitEnCPP(ostream & cout, unsigned int identation) const;
+  
   private:
     Noeud*  m_condition;
     Noeud*  m_sequence;
@@ -140,7 +143,8 @@ class NoeudInstEcrire : public Noeud {
    ~NoeudInstEcrire() {} // A cause du destructeur virtuel de la classe Noeud
     void ajoute(Noeud* instruction);
     int executer();  // Exécute l'instruction si : si condition vraie on exécute la séquence
-
+    void traduitEnCPP(ostream & cout, unsigned int identation) const;
+  
   private:
    vector<Noeud*>  m_variable;
 };
@@ -153,7 +157,8 @@ class NoeudInstLire : public Noeud {
      // Construit une "instruction si" avec sa condition et sa séquence d'instruction
    ~NoeudInstLire() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();  // Exécute l'instruction si : si condition vraie on exécute la séquence
-
+    void traduitEnCPP(ostream & cout, unsigned int identation) const;
+  
   private:
     vector<Noeud*>  m_variable;
 };
