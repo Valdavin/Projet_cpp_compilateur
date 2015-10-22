@@ -1,6 +1,7 @@
 # Fichier de test.txt
 # Les lignes de commentaires commencent par #
 procedure principale()
+# test de si, sinonsi et sinon
     i = 1;
         ecrire("ok1 doit être affiché.i = 1 = ",i)
     si(i==5)
@@ -11,6 +12,74 @@ procedure principale()
         ecrire("ok2 doit être affiché.")
     finsi
 
+    si(i==5)
+        ecrire("erreur ne doit pas être affiché.")
+    sinonsi(i==4)
+        ecrire("erreur ne doit pas être affiché.")
+    sinonsi(i<6)
+        ecrire("ok3 doit être affiché.")
+    sinonsi(i==1)
+        ecrire("erreur ne doit pas être affiché.")
+    sinon
+        ecrire("erreur ne doit pas être affiché.")
+    finsi
+
+
+    i=i*4;
+    si(i==4)
+        ecrire("ok4 doit être affiché.i = 4 = ",i)
+    sinonsi(i==4)
+        ecrire("erreur ne doit pas être affiché.")
+    sinon
+        ecrire("erreur ne doit pas être affiché.")
+    finsi
+
+#test de tantque
+    tantque(i<8)
+    i=1+i;
+        ecrire("ok5-8 doit être affiché.  i(5-8) = ",i)
+    fintantque
     
+#test de repeter
+    j=1;
+        ecrire("ok9 doit être affiché.  j = ",j)
+    repeter
+        j=j+1;
+        ecrire("ok10-11 doit être affiché.  j(2-3) = ",j)
+    jusqua ( j==3 )
+    
+#test de pour
+    j=1;
+        ecrire("ok12 doit être affiché.  j = ",j)
+    pour(;j>-1;)
+        j=j-1;
+        ecrire("ok13-15 doit être affiché.  j(0-(-2)) = ",j)
+    finpour
+
+    pour(k=1;k>-1;)
+        k=k-1;
+        ecrire("ok16-18 doit être affiché.  k(0-(-2)) = ",k)
+    finpour
+
+    pour(k=1;k>-1;k=k-1)
+        ecrire("ok19-21 doit être affiché.  k(1-(-1)) = ",k)
+    finpour
+
+    k=1;
+    pour(;k>-1;k=k-1)
+        ecrire("ok22-24 doit être affiché.  k(1-(-1)) = ",k)
+    finpour
+
+#test de lire
+    ecrire("écrivez les variable b et c : ")
+    lire(b,c)
+
+#test de ecrire
+    ecrire("b = ",b,"   ","c = ",c)
+    ecrire("55 = ",55)
+
+
+    ecrire("ok25 dernier ok.")
+
 finproc
 # Commentaire Final

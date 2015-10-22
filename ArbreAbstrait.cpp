@@ -86,10 +86,9 @@ int NoeudOperateurBinaire::executer() {
 
 void NoeudOperateurBinaire::traduitEnCPP(ostream & cout, unsigned int identation) const {
 cout << ((SymboleValue*) m_operandeGauche)->getChaine();
-    int fin = 0;
     if (this->m_operateur == "+") { cout<< " && ";}
     else if (this->m_operateur == "-") { cout<< " - ";}
-    else if (this->m_operateur == "*") { cout<< " * ( ";fin =1;}
+    else if (this->m_operateur == "*") { cout<< " * ";}
     else if (this->m_operateur == "==") { cout<< " == ";}
     else if (this->m_operateur == "!=") { cout<< " != ";}
     else if (this->m_operateur == "<") { cout<< " < ";}
@@ -99,11 +98,10 @@ cout << ((SymboleValue*) m_operandeGauche)->getChaine();
     else if (this->m_operateur == "et") { cout<< " && ";}
     else if (this->m_operateur == "ou") { cout<< " || ";}
     else if (this->m_operateur == "non") { cout<< " ! ";}
-    else if (this->m_operateur == "/") { cout<< " / ( ";fin =1;}
+    else if (this->m_operateur == "/") { cout<< " / ";}
     else { cout << " " << m_operateur << " ";}
     cout << ((SymboleValue*) m_operandeDroit)->getChaine();
-    if(fin==1)
-        cout << " )";
+   
 }
 
 
