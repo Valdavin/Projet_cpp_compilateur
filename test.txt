@@ -1,0 +1,16 @@
+# Fichier de test.txt
+# Les lignes de commentaires commencent par #
+procedure principale()
+    i = 1;
+        ecrire("ok1 doit être affiché")
+    si(i==5)
+        ecrire("erreur ne doit pas être affiché")
+    sinonsi(i>5)
+        ecrire("erreur ne doit pas être affiché")
+    sinon
+        ecrire("ok2 doit être affiché")
+    finsi
+
+    
+finproc
+# Commentaire Final

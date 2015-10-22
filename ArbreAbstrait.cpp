@@ -124,7 +124,7 @@ int NoeudInstSi::executer() {
                 fin=1;
             }
         }
-    else if ( fin == 0 && m_sequence3 != NULL ){
+    if ( fin == 0 && m_sequence3 != NULL ){
         m_sequence3->executer();
     }
   return 0; // La valeur renvoyée ne représente rien !
