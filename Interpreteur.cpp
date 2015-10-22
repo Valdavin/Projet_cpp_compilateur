@@ -59,10 +59,11 @@ void Interpreteur::erreur(const string & message) const throw (SyntaxeException)
 }
 
 void Interpreteur::traduireEnCPP(ostream & cout, unsigned int indentation) const {
-    cout << setw(4*identation) << "" << "int main () {" << endl;
+    cout << setw(4*indentation) << "" << "int main () {" << endl;
     
-    getArbre()->traduitEnCPP(cout identation+1);
-    cout << setw(4*(indentation+1)) << "" << "retrun 0;" << endl ;
+    getArbre()->traduitEnCPP(cout, indentation+1);
+    cout << setw(4*(indentation+1)) << "" << "return 0;" << endl ;
+    cout << setw(4*(indentation)) << "" << "}" << endl ;
 }
 
 Noeud* Interpreteur::programme() {
