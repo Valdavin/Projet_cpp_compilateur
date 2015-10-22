@@ -45,7 +45,11 @@ int NoeudAffectation::executer() {
 }
 
 void NoeudAffectation::traduitEnCPP(ostream & cout, unsigned int identation) const {
-    cout << m_variable << " = " << m_expression << ";";
+    cout << setw(4*identation) << "";
+    m_variable->traduitEnCPP(cout, 0);
+    cout << " = " << endl;
+    m_expression->traduitEnCPP(cout, 0);
+    cout << ";" << endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -81,7 +85,7 @@ int NoeudOperateurBinaire::executer() {
 }
 
 void NoeudOperateurBinaire::traduitEnCPP(ostream & cout, unsigned int identation) const {
-    cout << setw(identation) << "" << m_operandeGauche->traduitEnCPP(ostream & cout, unsigned int identation);
+cout << ((SymboleValue*) m_operandeGauche)->getChaine();
     int fin = 0;
     if (this->m_operateur == "+") { cout<< " && ";}
     else if (this->m_operateur == "-") { cout<< " - ";}
@@ -97,7 +101,7 @@ void NoeudOperateurBinaire::traduitEnCPP(ostream & cout, unsigned int identation
     else if (this->m_operateur == "non") { cout<< " ! ";}
     else if (this->m_operateur == "/") { cout<< " / ( ";fin =1;}
     else { cout << " " << m_operateur << " ";}
-    cout << m_operandeDroit->traduitEnCPP(ostream & cout, unsigned int identation);
+    cout << ((SymboleValue*) m_operandeDroit)->getChaine();
     if(fin==1)
         cout << " )";
 }
@@ -112,16 +116,40 @@ NoeudInstSi::NoeudInstSi(Noeud* condition, Noeud* sequence, vector<Noeud*> condi
 }
 
 int NoeudInstSi::executer() {
-  if (m_condition->executer()) m_sequence->executer();
+    int fin = 0;
+    if (m_condition->executer()){ m_sequence->executer();fin=1;}
+    else if (fin==0)for (unsigned int i = 0; i < m_condition2.size() && fin==0; i++){
+            if (m_condition2[i]->executer()){
+                m_sequence2[i]->executer();
+                fin=1;
+            }
+        }
+    else if ( fin == 0 && m_sequence3 != NULL ){
+        m_sequence3->executer();
+    }
   return 0; // La valeur renvoyée ne représente rien !
 }
 
 void NoeudInstSi::traduitEnCPP(ostream & cout, unsigned int identation) const {
-    cout << setw(4*identation) << "" << "if (";
+    cout << setw(4*identation) << "" << "if ( ";
     m_condition->traduitEnCPP(cout, 0);
-    cout << ")  {" << endl;
+    cout << " )  {" << endl;
     m_sequence->traduitEnCPP(cout, identation+1);
-    cout << setw(4*identation) << "" << ")" << endl;
+    cout << setw(4*identation) << "" << "}";
+    for (unsigned int i = 0; i < m_condition2.size(); i++){
+        cout << " else if ( ";
+        m_condition2[i]->traduitEnCPP(cout, 0);
+        cout << " )  {" << endl;
+        m_sequence2[i]->traduitEnCPP(cout, identation+1);
+        cout << setw(4*identation) << "" << "}";
+    }
+    if ( m_sequence3 != NULL ){
+        cout << setw(4*identation) << "" << "else {" << endl;
+        m_sequence3->traduitEnCPP(cout, identation+1);
+        cout << setw(4*identation) << "" << "}" << endl;
+    }
+    m_condition->traduitEnCPP(cout, 0);
+    cout << endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

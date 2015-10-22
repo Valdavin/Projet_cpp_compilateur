@@ -22,7 +22,7 @@ class Noeud {
     virtual int  executer() =0 ; // Méthode pure (non implémentée) qui rend la classe abstraite
     virtual void ajoute(Noeud* instruction) { throw OperationInterditeException(); }
     virtual ~Noeud() {} // Présence d'un destructeur virtuel conseillée dans les classes abstraites
-    virtual void traduitEnCPP(ostream & cout, unsigned int identation) const; // Méthode pure (non implémentée) qui rend la classe abstraite
+    virtual void traduitEnCPP(ostream & cout, unsigned int identation) const{}; // Méthode pure (non implémentée) qui rend la classe abstraite
 };
 
 ////////////////////////////////////////////////////////////////////////////////
