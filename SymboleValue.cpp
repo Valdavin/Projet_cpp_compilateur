@@ -25,5 +25,5 @@ ostream & operator<<(ostream & cout, const SymboleValue & symbole) {
 }
 
 void SymboleValue::traduitEnCPP(ostream & cout, unsigned int identation) const {
-    cout<<m_valeur;
+    cout << this->getChaine();
 }
