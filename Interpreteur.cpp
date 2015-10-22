@@ -58,6 +58,13 @@ void Interpreteur::erreur(const string & message) const throw (SyntaxeException)
     throw SyntaxeException(messageWhat.str());
 }
 
+void Interpreteur::traduireEnCPP(ostream & cout, unsigned int indentation) const {
+    cout << setw(4*identation) << "" << "int main () {" << endl;
+    
+    getArbre()->traduitEnCPP(cout identation+1);
+    cout << setw(4*(indentation+1)) << "" << "retrun 0;" << endl ;
+}
+
 Noeud* Interpreteur::programme() {
     // <programme> ::= procedure principale() <seqInst> finproc FIN_FICHIER
     testerEtAvancer("procedure");
