@@ -1,0 +1,40 @@
+# Test du si 
+# Résultat attendu : 
+# test1 = 1 
+# test2 = 1  
+# test3 = 1  
+# test4 = 1  
+procedure principale() 
+  test1 = 0 ;
+ 
+  si ( test1==0 ) 
+    test1 = 1 ; 
+  finsi 
+
+  test2 = 1 ; 
+  si ( test2<0 ) 
+    test2 = 0 ; 
+  finsi
+
+    test3=2;
+    si(test3==5)
+        test3=0;
+    sinonsi(test3==4)
+        test3=0;
+    sinonsi(test3<6)
+        test3=1;
+    sinonsi(test3==1)
+        test3=0;
+    sinon
+        test3=0;
+    finsi
+
+    test4 = 2;
+    si(test4==4)
+        test4=0;
+    sinonsi(test4>4)
+        test4=0;
+    sinon
+        test4=1;
+    finsi
+finproc

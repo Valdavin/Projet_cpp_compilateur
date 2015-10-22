@@ -1,0 +1,9 @@
+# Test du Repeter 
+# Résultat attendu : 
+# test1 = 1 
+procedure principale() 
+    test1=10;
+    repeter
+        test1=test1-1;
+    jusqua ( test1==1 )
+finproc
