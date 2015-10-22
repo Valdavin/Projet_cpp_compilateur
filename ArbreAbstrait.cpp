@@ -81,13 +81,25 @@ int NoeudOperateurBinaire::executer() {
 }
 
 void NoeudOperateurBinaire::traduitEnCPP(ostream & cout, unsigned int identation) const {
-    cout << setw(identation) << "" << m_operandeGauche;
-    if (this->m_operateur == "et") cout<< " && ";
-    else if (this->m_operateur == "ou") cout<< " || ";
-    else if (this->m_operateur == "non") cout<< " != ";
-    else  cout << " " << m_operateur << " ";
-  
-    cout << m_operandeDroit;
+    cout << setw(identation) << "" << m_operandeGauche->traduitEnCPP(ostream & cout, unsigned int identation);
+    int fin = 0;
+    if (this->m_operateur == "+") { cout<< " && ";}
+    else if (this->m_operateur == "-") { cout<< " - ";}
+    else if (this->m_operateur == "*") { cout<< " * ( ";fin =1;}
+    else if (this->m_operateur == "==") { cout<< " == ";}
+    else if (this->m_operateur == "!=") { cout<< " != ";}
+    else if (this->m_operateur == "<") { cout<< " < ";}
+    else if (this->m_operateur == ">") { cout<< " > ";}
+    else if (this->m_operateur == "<=") { cout<< " <= ";}
+    else if (this->m_operateur == ">=") { cout<< " >= ";}
+    else if (this->m_operateur == "et") { cout<< " && ";}
+    else if (this->m_operateur == "ou") { cout<< " || ";}
+    else if (this->m_operateur == "non") { cout<< " ! ";}
+    else if (this->m_operateur == "/") { cout<< " / ( ";fin =1;}
+    else { cout << " " << m_operateur << " ";}
+    cout << m_operandeDroit->traduitEnCPP(ostream & cout, unsigned int identation);
+    if(fin==1)
+        cout << " )";
 }
 
 
