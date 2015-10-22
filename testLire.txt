@@ -1,0 +1,6 @@
+# Test de la fontion Lire
+
+procedure principale()
+		x=42;
+		lire (x,y,z,a,b)
+finproc

@@ -101,7 +101,10 @@ cout << ((SymboleValue*) m_operandeGauche)->getChaine();
     else if (this->m_operateur == "non") { cout<< " ! ";}
     else if (this->m_operateur == "/") { cout<< " / ";}
     else { cout << " " << m_operateur << " ";}
-    cout << ((SymboleValue*) m_operandeDroit)->getChaine();
+    
+    if (m_operandeDroit != nullptr) { // On vérifie bien qu'il y a une opé droite
+        cout << ((SymboleValue*) m_operandeDroit)->getChaine();
+    }
    
 }
 
@@ -145,8 +148,9 @@ void NoeudInstSi::traduitEnCPP(ostream & cout, unsigned int indentation) const {
     if ( m_sequence3 != NULL ){
         cout << " else {" << endl;
         m_sequence3->traduitEnCPP(cout, indentation+1);
-        cout << setw(4*indentation) << "" << "}" << endl;
+        cout << setw(4*indentation) << "" << "}" ;
     }
+    cout << endl; 
 }
 
 ////////////////////////////////////////////////////////////////////////////////

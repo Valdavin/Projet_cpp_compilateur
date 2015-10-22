@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux-x86
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux-x86
-CND_ARTIFACT_NAME_Debug=projet_cpp_compilateur
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/projet_cpp_compilateur
+CND_ARTIFACT_NAME_Debug=projet_cpp
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/projet_cpp
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Debug=projetcppcompilateur.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/projetcppcompilateur.tar
+CND_PACKAGE_NAME_Debug=projetcpp.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/projetcpp.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux-x86
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux-x86
-CND_ARTIFACT_NAME_Release=projet_cpp_compilateur
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/projet_cpp_compilateur
+CND_ARTIFACT_NAME_Release=projet_cpp
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/projet_cpp
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Release=projetcppcompilateur.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/projetcppcompilateur.tar
+CND_PACKAGE_NAME_Release=projetcpp.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/projetcpp.tar
 #
 # include compiler specific variables
 #

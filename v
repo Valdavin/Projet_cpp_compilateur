@@ -5,7 +5,7 @@ procedure principale()
   si (i>14)
     j=1;
   finsi
-tantque(j<42)
+tantque(j<-42)
     j=j+1;
     j=j+1;
  fintantque
