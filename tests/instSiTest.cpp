@@ -49,6 +49,21 @@ void instSiTest::testMethod() {
     
     }
     
+    ifstream fichier1("testSiBug1.txt");
+    Interpreteur interpreteur1(fichier1);
+    CPPUNIT_ASSERT_THROW(interpreteur1.analyse(), SyntaxeException);
+    
+    
+    ifstream fichier2("testSiBug2.txt");
+    Interpreteur interpreteur2(fichier2);
+    interpreteur2.analyse();
+    CPPUNIT_ASSERT(!interpreteur2.sansErreur());
+    
+    
+    ifstream fichier3("testSiBug3.txt");
+    Interpreteur interpreteur3(fichier3);
+    interpreteur3.analyse();
+    CPPUNIT_ASSERT(!interpreteur3.sansErreur());
 }
 
 void instSiTest::testFailedMethod() {

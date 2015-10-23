@@ -1,0 +1,12 @@
+# Test du si 
+# Résultat attendu : 
+# Erreur Syntaxe  
+
+procedure principale() 
+  test1 = 0 ;
+ 
+  si ( test1=0 ) 
+    test1 = 1 ; 
+  finsi 
+
+finproc
