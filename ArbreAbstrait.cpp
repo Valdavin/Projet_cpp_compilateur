@@ -86,7 +86,8 @@ int NoeudOperateurBinaire::executer() {
 }
 
 void NoeudOperateurBinaire::traduitEnCPP(ostream & cout, unsigned int indentation) const {
-cout << ((SymboleValue*) m_operandeGauche)->getChaine();
+    if (this->m_operateur == "-") { cout<< "(";}
+    cout << ((SymboleValue*) m_operandeGauche)->getChaine();
     if (this->m_operateur == "+") { cout<< " + ";}
     else if (this->m_operateur == "-") { cout<< " - ";}
     else if (this->m_operateur == "*") { cout<< " * ";}
@@ -103,7 +104,11 @@ cout << ((SymboleValue*) m_operandeGauche)->getChaine();
     else { cout << " " << m_operateur << " ";}
     
     if (m_operandeDroit != nullptr) { // On vérifie bien qu'il y a une opé droite
-        cout << ((SymboleValue*) m_operandeDroit)->getChaine();
+        //cout << ((SymboleValue*) m_operandeDroit)->getChaine();
+        
+        m_operandeDroit->traduitEnCPP(cout,0);
+    if (this->m_operateur == "-") { cout<< ")";}
+        
     }
    
 }
@@ -224,7 +229,7 @@ int NoeudInstPour::executer() {
         }
     }
     //for(m_affectation1->executer();m_condition->executer();m_affectation2->executer())
-   m_sequence->executer();
+
   return 0; // La valeur renvoyée ne représente rien !
 }
 void NoeudInstPour::traduitEnCPP(ostream & cout, unsigned int indentation) const {
@@ -240,7 +245,7 @@ void NoeudInstPour::traduitEnCPP(ostream & cout, unsigned int indentation) const
         cout << ";";
     if (m_affectation2 != NULL) {
         cout << " ";
-        m_affectation2->traduitEnCPP(cout, 0);
+        m_affectation2->traduitEnCPP(cout, 0);       
     }
     cout << ") {" << endl;
     m_sequence->traduitEnCPP(cout, indentation + 1);
@@ -281,7 +286,7 @@ void NoeudInstEcrire::traduitEnCPP(ostream & cout, unsigned int indentation) con
         }
     }
 
-    cout << " ;" << endl;
+    cout <<" << endl ;" << endl;
 }
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudLire

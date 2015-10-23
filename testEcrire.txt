@@ -2,5 +2,5 @@
 
 procedure principale()
 			a = 42;
-			ecrire(a , " ok si 42")			
+			ecrire(a , " ok si 42");			
 finproc

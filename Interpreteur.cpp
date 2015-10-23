@@ -59,6 +59,10 @@ void Interpreteur::erreur(const string & message) const throw (SyntaxeException)
 }
 
 void Interpreteur::traduireEnCPP(ostream & cout, unsigned int indentation) const {
+    
+    cout << "#include <iostream>" << endl;
+    cout << "using namespace std;" << endl;
+    cout << endl;   
     cout << setw(4*indentation) << "" << "int main () {" << endl;
     
     for (int i = 0; i<m_table.getTaille(); i++) { // On Déclare toute les variables utilisées
@@ -221,6 +225,7 @@ Noeud* Interpreteur::instRepeter() {
     testerEtAvancer("(");
     Noeud* condition = expression(); // On mémorise la condition
     testerEtAvancer(")");
+    testerEtAvancer(";");
     return new NoeudInstRepeter(sequence, condition); // Et on renvoie un noeud Instruction Si
 }
 
@@ -267,7 +272,7 @@ Noeud* Interpreteur::instEcrire() {
         }
     }
     testerEtAvancer(")");    // On mémorise la séquence d'instruction
-    //testerEtAvancer(";");
+    testerEtAvancer(";");
     return valeur; // Et on renvoie un noeud Instruction Si
 }
 
@@ -282,6 +287,7 @@ Noeud* Interpreteur::instLire() {
         variable.push_back(expression());
     }
     testerEtAvancer(")");
+    testerEtAvancer(";");
     return new NoeudInstLire(variable); // Et on renvoie un noeud Instruction Si*/
 }
 

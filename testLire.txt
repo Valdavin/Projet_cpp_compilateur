@@ -2,5 +2,5 @@
 
 procedure principale()
 		x=42;
-		lire (x,y,z,a,b)
+		lire (x,y,z,a,b);
 finproc
