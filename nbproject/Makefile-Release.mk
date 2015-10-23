@@ -51,11 +51,11 @@ TESTFILES= \
 	${TESTDIR}/TestFiles/f1
 
 # C Compiler Flags
-CFLAGS=
+CFLAGS=`cppunit-config --cflags` 
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=`cppunit-config --cflags` 
+CXXFLAGS=`cppunit-config --cflags` 
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -64,15 +64,15 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=`cppunit-config --libs`  
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projet_cpp
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${TESTDIR}/TestFiles/f2
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projet_cpp: ${OBJECTFILES}
-	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projet_cpp ${OBJECTFILES} ${LDLIBSOPTIONS}
+${TESTDIR}/TestFiles/f2: ${OBJECTFILES}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/ArbreAbstrait.o: ArbreAbstrait.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -234,7 +234,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projet_cpp
+	${RM} ${TESTDIR}/TestFiles/f2
 
 # Subprojects
 .clean-subprojects:

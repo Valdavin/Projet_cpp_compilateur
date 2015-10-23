@@ -7,9 +7,10 @@
 
 #include "instSiTest.h"
 // #include "../ArbreAbstrait.h" 
-#include "Interpreteur.h"
-#include "Exceptions.h"
-
+#include "../Interpreteur.h"
+#include "../Exceptions.h"
+#include <iostream>
+using namespace std;
 
 CPPUNIT_TEST_SUITE_REGISTRATION(instSiTest);
 
@@ -28,11 +29,29 @@ void instSiTest::tearDown() {
 void instSiTest::testMethod() {
     ifstream fichier("testSi.txt");
     Interpreteur interpreteur(fichier);
-    interpreteur.analyse();
-    CPPUNIT_ASSERT_EQUAL_MESSAGE ("Test 1 : ", 1, interpreteur.getTable()[7].getChaine())
+    
+    Symbole test1("test1");
+    Symbole test2("test2");
+    Symbole test3("test3");
+    Symbole test4("test4");
+    
+    
+    if (interpreteur.sansErreur()) {
+        CPPUNIT_ASSERT_NO_THROW_MESSAGE("Analyse fonctionelle. Pas d'erreurs de syntaxe", interpreteur.analyse());
+        CPPUNIT_ASSERT_NO_THROW_MESSAGE("Arbre fonctionnel", interpreteur.getArbre()->executer());
+        
+        TableSymboles Ts = interpreteur.getTable();
+        
+        CPPUNIT_ASSERT_EQUAL_MESSAGE ("Test 1 : ", 1, Ts.chercheAjoute(test1)->executer());
+        CPPUNIT_ASSERT_EQUAL_MESSAGE ("Test 2 : ", 1, Ts.chercheAjoute(test2)->executer());
+        CPPUNIT_ASSERT_EQUAL_MESSAGE ("Test 3 : ", 1, Ts.chercheAjoute(test3)->executer());
+        CPPUNIT_ASSERT_EQUAL_MESSAGE ("Test 4 : ", 1, Ts.chercheAjoute(test4)->executer());
+    
+    }
+    
 }
 
 void instSiTest::testFailedMethod() {
-    CPPUNIT_ASSERT(false);
+    //CPPUNIT_ASSERT(false);
 }
 
